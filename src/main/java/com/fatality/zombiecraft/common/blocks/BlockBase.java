@@ -20,8 +20,7 @@ public abstract class BlockBase extends Block {
 	
 	public BlockBase(Material material, String unlocalName, String resourcePath) {
 		super(material);
-		setHardness(2.0F);
-		setResistance(5.0F);
+		setBlockUnbreakable();
 		this.groupName = resourcePath;
 		this.unlocalizedName = unlocalName;
 		this.resourcePath = String.format("%s/%s", resourcePath, unlocalName);

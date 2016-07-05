@@ -14,6 +14,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
@@ -28,10 +29,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockBarrier extends BlockBase {
 	
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
-	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D ,1.0D, 1.0D, constants.pixel * 3);
-	protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, constants.pixel * 13,1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(constants.pixel * 13, 0.0D, 0.0D,1.0D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D ,constants.pixel * 3, 1.0D, 1.0D);
+	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, constants.pixel * 3);
+	protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, constants.pixel * 13, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(constants.pixel * 13, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, constants.pixel * 3, 1.0D, 1.0D);
 	
 	public BlockBarrier() {
 		super(Material.ROCK, "barrier", "tiles");
@@ -51,9 +52,8 @@ public class BlockBarrier extends BlockBase {
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer()
-	{
-		return BlockRenderLayer.CUTOUT;
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
 	}
 	
 	@Override
@@ -93,5 +93,13 @@ public class BlockBarrier extends BlockBase {
 			case NORTH:
 				return NORTH_AABB;
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
+		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+			return blockState.getBoundingBox(worldIn, pos);
+		
+		return null;
 	}
 }
