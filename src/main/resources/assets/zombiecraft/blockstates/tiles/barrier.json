@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "zombiecraft:tiles/barrier"
+    },
+    "facing=east": {
+      "model": "zombiecraft:tiles/barrier",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "zombiecraft:tiles/barrier",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "zombiecraft:tiles/barrier",
+      "y": 270
+    }
+  }
+}

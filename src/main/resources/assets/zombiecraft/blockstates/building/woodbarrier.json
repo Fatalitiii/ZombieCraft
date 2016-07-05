@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "zombiecraft:tiles/woodbarrier"
+    },
+    "facing=east": {
+      "model": "zombiecraft:tiles/woodbarrier",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "zombiecraft:tiles/woodbarrier",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "zombiecraft:tiles/woodbarrier",
+      "y": 270
+    }
+  }
+}
