@@ -4,6 +4,8 @@
 
 package com.fatality.zombiecraft.proxy;
 
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
 public interface IProxy {
 	
 	void registerBlocks();
@@ -19,4 +21,6 @@ public interface IProxy {
 	void registerMessages();
 	
 	void registerCapabilities();
+	
+	void initConfig(FMLPreInitializationEvent event);
 }

@@ -6,6 +6,7 @@ package com.fatality.zombiecraft.common.items;
 
 import com.fatality.zombiecraft.utils.ModInfo;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public abstract class ItemBase extends Item {
 	
@@ -31,6 +32,15 @@ public abstract class ItemBase extends Item {
 	public String getUnlocalizedName() {
 		String unlocalizedName = super.getUnlocalizedName();
 		unlocalizedName = unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
+		
+		return String.format("item.%s.%s.%s", ModInfo.MOD_ID, groupName, unlocalizedName);
+	}
+
+	@Override
+	public String getUnlocalizedName(ItemStack stack) {
+		String unlocalizedName = super.getUnlocalizedName();
+		unlocalizedName = unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
+		
 		return String.format("item.%s.%s.%s", ModInfo.MOD_ID, groupName, unlocalizedName);
 	}
 }

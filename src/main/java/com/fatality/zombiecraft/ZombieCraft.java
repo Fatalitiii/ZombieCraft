@@ -6,11 +6,14 @@ package com.fatality.zombiecraft;
 
 import com.fatality.zombiecraft.proxy.IProxy;
 import com.fatality.zombiecraft.utils.ModInfo;
+import com.fatality.zombiecraft.utils.constants;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+import java.io.File;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.VERSION)
 public class ZombieCraft {
@@ -32,6 +35,8 @@ public class ZombieCraft {
 		proxy.registerMessages();
 		proxy.registerCapabilities();
 		
+		proxy.initConfig(event);
+				
 	}
 	
 	@Mod.EventHandler

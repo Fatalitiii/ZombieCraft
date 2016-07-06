@@ -5,6 +5,9 @@
 package com.fatality.zombiecraft.common.blocks.tiles;
 
 import com.fatality.zombiecraft.common.blocks.BlockBase;
+import com.fatality.zombiecraft.common.blocks.BlockTileBase;
+import com.fatality.zombiecraft.common.blocks.Blocks;
+import com.fatality.zombiecraft.common.tileentities.tiles.TileEntityBarricade;
 import com.fatality.zombiecraft.utils.ZombieCraftCreativeTabs;
 import com.fatality.zombiecraft.utils.constants;
 import net.minecraft.block.Block;
@@ -17,7 +20,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockBarrier extends BlockBase {
+public class BlockBarricade extends BlockTileBase {
 	
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, constants.pixel * 3);
@@ -34,15 +36,16 @@ public class BlockBarrier extends BlockBase {
 	protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(constants.pixel * 13, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
 	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, constants.pixel * 3, 1.0D, 1.0D);
 	
-	public BlockBarrier() {
-		super(Material.ROCK, "barrier", "tiles");
-		setCreativeTab(ZombieCraftCreativeTabs.GENERAL);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+	public BlockBarricade() {
+		super(Material.ROCK, "blockbarricade", "tiles", TileEntityBarricade.class);
+		setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}
 	
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
 		BlockPos blockpos = pos.down();
-		worldIn.setBlockToAir(blockpos);
+		if(worldIn.getBlockState(blockpos).getBlock() == Blocks.BLOCK_WOOD_BARRIER.getBlock()) {
+			worldIn.setBlockToAir(blockpos);
+		}
 	}
 	
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
@@ -50,12 +53,7 @@ public class BlockBarrier extends BlockBase {
 			worldIn.setBlockToAir(pos);
 		}
 	}
-	
-	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.TRANSLUCENT;
-	}
-	
+		
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing enumfacing = EnumFacing.getFront(meta);
@@ -95,10 +93,11 @@ public class BlockBarrier extends BlockBase {
 		}
 	}
 	
-	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
-		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
-			return blockState.getBoundingBox(worldIn, pos);
+		if (Minecraft.getMinecraft().thePlayer != null) {
+			if (Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+				return blockState.getBoundingBox(worldIn, pos);
+		}
 		
 		return null;
 	}

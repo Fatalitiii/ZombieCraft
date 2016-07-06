@@ -20,12 +20,15 @@
 
 package com.fatality.zombiecraft.common.items;
 
+import com.fatality.zombiecraft.common.items.misc.*;
+import com.fatality.zombiecraft.common.items.tiles.*;
 import com.fatality.zombiecraft.utils.Register;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public enum Items {
-	;
+	ITEM_HELPER(ItemHelper.class),
+	ITEM_BLOCK_BARRICADE(ItemBarricade.class);
 	
 	private final Class<? extends Item> itemClass;
 	private Item item;
